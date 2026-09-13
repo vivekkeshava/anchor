@@ -1,0 +1,22 @@
+# Postgres for local development and for the chaos harness.
+#
+#   docker compose up -d
+#   export ANCHOR_DSN=postgresql://anchor:anchor@localhost:55432/anchor
+#   python -m chaos.harness --runs 100 --kills 60
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: anchor
+      POSTGRES_PASSWORD: anchor
+      POSTGRES_DB: anchor
+    ports:
+      # Deliberately not 5432: the chaos harness truncates every table, and pointing it at
+      # a developer's default local Postgres by accident would be an unpleasant surprise.
+      - "55432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U anchor"]
+      interval: 2s
+      timeout: 2s
+      retries: 15

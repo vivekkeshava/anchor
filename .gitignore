@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtualenvs
+.venv/
+venv/
+
+# Tooling
+.pytest_cache/
+.hypothesis/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+
+# Local runs
+*.log
+chaos-report.json

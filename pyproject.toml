@@ -1,0 +1,34 @@
+[project]
+name = "anchor"
+version = "0.1.0"
+description = "Durable execution runtime for LLM agents: journal, deterministic replay, effectively-once tool side effects."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Vivek Keshava", email = "vivek.keshava1@gmail.com" }]
+dependencies = [
+    "asyncpg>=0.30.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.24",
+    "hypothesis>=6.100",
+]
+
+[project.scripts]
+anchor-worker = "anchor.worker:main"
+anchor-chaos = "chaos.harness:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["anchor", "anchor.journal", "anchor.runtime", "anchor.effects", "anchor.leases"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+filterwarnings = ["error::DeprecationWarning"]
