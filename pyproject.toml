@@ -26,7 +26,20 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["anchor", "anchor.journal", "anchor.runtime", "anchor.effects", "anchor.leases"]
+# examples and chaos must be installed too: tests import the demo agent, and the
+# anchor-chaos console script points into chaos.harness. Leaving them out works when
+# pytest is invoked as `python -m pytest` (which puts CWD on sys.path) and fails on a
+# clean `pip install -e .` followed by bare `pytest` — i.e. it passes locally and breaks
+# in CI.
+packages = [
+    "anchor",
+    "anchor.journal",
+    "anchor.runtime",
+    "anchor.effects",
+    "anchor.leases",
+    "examples",
+    "chaos",
+]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
